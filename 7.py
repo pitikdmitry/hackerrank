@@ -1,45 +1,27 @@
-# Complete the freqQuery function below.
-def freqQuery(queries):
-    d = {}
-    counters = {}
-    for query in queries:
-        op = query[0]
-        val = query[1]
-        if op == 1:
-            if val not in d:
-                d[val] = 1
-            else:
-                counters[d[val]] -= 1
-                d[val] += 1
+class Solution:
+    def canJump(self, nums) -> bool:
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        res = self.jump(nums, 0)
+        return res
 
-            if d[val] not in counters:
-                counters[d[val]] = 1
-            else:
-                counters[d[val]] += 1
-        elif op == 2:
-            if val in d and d[val] >= 1:
-                counters[d[val]] -= 1
+    def jump(self, nums, index) -> bool:
+        if index == len(nums) - 1:
+            return True
 
-                d[val] -= 1
-                if d[val] not in counters:
-                    counters[d[val]] = 1
-                else:
-                    counters[d[val]] += 1
+        dist = nums[index]
+        end = min(index + dist, len(nums) - 1)
 
-        elif op == 3:
-            done = False
+        for j in range(index + 1, end + 1):
+            if self.jump(nums, j):
+                return True
 
-            if val in counters and counters[val] > 0:
-                print(1)
-            else:
-                print(0)
+        return False
 
 
-q = int(input())
-queries = []
+s = Solution()
 
-for i in range(q):
-    query = list(map(int, input().split()))
-    queries.append(query)
-
-freqQuery(queries)
+nums = [3, 2, 1, 0, 4]
+print(s.canJump(nums))
