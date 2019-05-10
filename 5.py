@@ -2,7 +2,7 @@
 
 
 class Solution:
-    def permute(self, nums):
+    def permute(self, nums: []) -> None:
         """
         :type nums: List[int]
         :rtype: List[List[int]]
@@ -13,7 +13,7 @@ class Solution:
         self.permutation(nums, start, end, res)
         print(res)
 
-    def permutation(self, nums, start, end, res):
+    def permutation(self, nums: [], start: int, end: int, res: []) -> None:
         if start == len(nums):
             res.append(nums.copy())
             return
