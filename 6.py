@@ -2,7 +2,7 @@
 
 
 class Solution:
-    def rotate(self, matrix):
+    def rotate(self, matrix: []) -> None:
         """
         :type matrix: List[List[int]]
         :rtype: void Do not return anything, modify matrix in-place instead.
