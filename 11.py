@@ -1,5 +1,5 @@
 # Complete the countSwaps function below.
-def countSwaps(arr):
+def count_swaps(arr):
     swaps = 0
     for i in range(0, len(arr)):
         for j in range(0, len(arr) - 1):
@@ -14,4 +14,4 @@ def countSwaps(arr):
 
 n = int(input())
 arr = list(map(int, input().split()))
-countSwaps(arr)
+count_swaps(arr)
