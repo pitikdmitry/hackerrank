@@ -1,19 +1,29 @@
-def twoStrings(first: str, second: str):
-    pointer = 0
-    while pointer < len(first):
-        letters = pointer + 1
-        while letters <= len(first):
-            word = first[pointer:letters]
-            res = second.find(word)
-            letters += 1
-            if res != -1:
-                return 'YES'
-        pointer += 1
-    return 'NO'
+# find all permutations of arrya
 
 
-q = int(input())
-for q_itr in range(q):
-    first = input()
-    second = input()
-    print(twoStrings(first, second))
+class Solution:
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        start = 0
+        end = len(nums) - 1
+        res = []
+        self.permutation(nums, start, end, res)
+        print(res)
+
+    def permutation(self, nums, start, end, res):
+        if start == len(nums):
+            res.append(nums.copy())
+            return
+
+        for i in range(start, end + 1):
+            nums[i], nums[start] = nums[start], nums[i]
+            self.permutation(nums, start + 1, end, res)
+            nums[i], nums[start] = nums[start], nums[i]
+
+
+s = Solution()
+
+s.permute([1, 2, 3])
