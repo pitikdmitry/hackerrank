@@ -1,52 +1,25 @@
-#!/bin/python3
-
-import math
-import os
-import random
-import re
-import sys
-from collections import Counter
+# Arrays rotation
 
 
-# Complete the isValid function below.
-def isValid(s) -> None:
-    counter = Counter()
-
-    for c in s:
-        counter[c] += 1
-
-    one_mistake = False
-    frequensy = Counter()
-    for key, value in counter.items():
-        frequensy[value] += 1
-
-    if len(frequensy) == 1:
-        print("YES")
-        return
-    elif len(frequensy) == 2:
-        one_flag = False
-        items = []
-        for value, freq in frequensy.items():
-            items.append((value, freq))
-            if freq == 1:
-                one_flag = True
-
-        if one_flag:
-            if abs(items[0][0] - items[1][0]) == 1 or (items[0][0] == 1 and items[0][1] == 1) or (items[1][0] == 1 and items[1][1] == 1):
-                print("YES")
-                return
-            else:
-                print("NO")
-                return
-        else:
-            print("NO")
-            return
-
-    else:
-        print("NO")
-        return
+def rot_right(arr: [], d: int) -> []:
+    for i in range(d):
+        last = arr[len(arr) - 1]
+        for j in range(len(arr) - 2, -1, -1):
+            arr[j + 1] = arr[j]
+        arr[0] = last
+    print(arr)
 
 
-s = input()
+def rot_left(arr: [], d: int) -> []:
+    result = []
+    for i in range(d, len(arr)):
+        result.append(arr[i])
+    for i in range(0, d):
+        result.append(arr[i])
+    return result
 
-isValid(s)
+
+n = int(input())
+d = int(input())
+arr = list(map(int, input().split()))
+print(rot_right(arr, d))
