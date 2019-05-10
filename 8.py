@@ -1,30 +1,26 @@
-str1 = input()
-str2 = input()
+class Solution:
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        dp = [-1 for _ in range(len(nums))]
 
-counter = 0
-common = {}
-for c in str1:
-    if c not in str2:
-        counter += 1
-    else:
-        if c in common:
-            common[c] += 1
-        else:
-            common[c] = 1
+        for i in range(0, len(nums)):
+            if i == 0:
+                dp[i] = nums[i]
 
+            elif i == 1:
+                dp[i] = max(nums[i - 1], nums[i])
 
-for c in str2:
-    if c not in str1:
-        counter += 1
-    else:
-        if c in common and common[c] > 0:
-            common[c] -= 1
-        else:
-            counter += 1
+            else:
+                dp[i] = max(dp[i - 1], nums[i] + dp[i - 2])
+
+        return max(dp[len(dp) - 1], dp[len(dp) - 2])
 
 
-for key, value in common.items():
-    if value > 0:
-        counter += value
-
-print(counter)
+s = Solution()
+nums = [2, 7, 9, 3, 1]
+s.rob(nums)
