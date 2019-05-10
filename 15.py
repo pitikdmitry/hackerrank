@@ -1,22 +1,29 @@
-# Complete the whatFlavors function below.
-def whatFlavors(cost, money) -> tuple:
+# Complete the maxSubsetSum function below.
+def el_max_subset(arr: [], cur: int, prev: int, step: int) -> int:
+    if cur >= len(arr):
+        return 0
 
-    hash = dict()
-    for idx, c in enumerate(cost):
-        hash[c] = idx
-
-    for idx, c in enumerate(cost):
-        pair = money - c
-        if pair in hash:
-            if idx != hash[pair]:
-                return idx, hash[pair]
+    if cur - prev <= 1:
+        return el_max_subset(arr, cur + step, prev, step)
+    else:
+        return arr[cur] + el_max_subset(arr, cur + step, cur, step)
 
 
-t = int(input())
-for _ in range(t):
-    money = int(input())
-    _ = int(input())
-    arr = list(map(int, input().rstrip().split()))
-    i, j = whatFlavors(arr, money)
-    print(i + 1, end=" ")
-    print(j + 1)
+def maxSubsetSum(arr: []) -> int:
+    max = arr[0]
+    for i in range(len(arr)):
+        for step in range(1, len(arr)):
+            m_res = el_max_subset(arr, i, i - 2, step)
+            if m_res > max:
+                max = m_res
+
+    return max
+
+
+n = int(input())
+
+arr = list(map(int, input().rstrip().split()))
+
+res = maxSubsetSum(arr)
+
+print(res)
