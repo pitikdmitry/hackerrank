@@ -1,6 +1,7 @@
-# Arrays: Left Rotation
+# Arrays rotation
 
-def rotRight(arr: [], d: int) -> []:
+
+def rot_right(arr: [], d: int) -> []:
     for i in range(d):
         last = arr[len(arr) - 1]
         for j in range(len(arr) - 2, -1, -1):
@@ -9,7 +10,7 @@ def rotRight(arr: [], d: int) -> []:
     print(arr)
 
 
-def rotLeft(arr: [], d: int) -> []:
+def rot_left(arr: [], d: int) -> []:
     result = []
     for i in range(d, len(arr)):
         result.append(arr[i])
@@ -21,4 +22,4 @@ def rotLeft(arr: [], d: int) -> []:
 n = int(input())
 d = int(input())
 arr = list(map(int, input().split()))
-print(rotRight(arr, d))
+print(rot_right(arr, d))
