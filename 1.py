@@ -1,33 +1,80 @@
-def sum_one_square(arr: [], start_i: int, start_j: int, width: int=3, height: int=3) -> int:
-    summ = 0
-    for i in range(start_i, start_i + width):
-        for j in range(start_j, start_j + height):
-            if i == start_i + 1 and (j == start_j or j == start_j + 2):
-                continue
-            summ += arr[i][j]
-    return summ
+class Node:
+    def __init__(self, value, arr_num):
+        self._value = value
+        self._arr_num = arr_num
+        self._left = None
+        self._right = None
+
+    @property
+    def value(self):
+        return self._value
+
+    @property
+    def left(self):
+        return self._left
+
+    @left.setter
+    def left(self, val):
+        self._left = val
+
+    @property
+    def right(self):
+        return self._right
+
+    @right.setter
+    def right(self, val):
+        self._right = val
 
 
-def hourglassSum(arr: []) -> []:
-    width, height = 3, 3
-    if len(arr) == 0:
-        return 0
+class Tree:
+    def __init__(self):
+        self._root = None
 
-    max_summ = None
-    for i in range(len(arr) - width + 1):
-        for j in range(len(arr[i]) - height + 1):
-            square_summ = sum_one_square(arr, i, j, width, height)
-            if max_summ is None:
-                max_summ = square_summ
-            elif square_summ > max_summ:
-                max_summ = square_summ
-    return max_summ
+    def add(self, node: Node):
+        if self._root is None:
+            self._root = node
+            return
+
+        current_node = self._root
+
+        while True:
+            if node.value < current_node.value:
+                if current_node.left is None:
+                    current_node.left = node
+                    break
+                else:
+                    current_node = current_node.left
+            else:
+                if current_node.right is None:
+                    current_node.right = node
+                    break
+                else:
+                    current_node = current_node.right
 
 
-arr = []
+# Complete the triplets function below.
+def triplets(a, b, c):
+    tree = Tree()
+    for val in a:
+        tree.add(Node(val, 1))
 
-for _ in range(6):
-    arr.append(list(map(int, input().rstrip().split())))
+    for val in b:
+        tree.add(Node(val, 2))
 
-result = hourglassSum(arr)
-print(result)
+    for val in c:
+        tree.add(Node(val, 3))
+
+
+lenaLenbLenc = input().split()
+
+lena = int(lenaLenbLenc[0])
+
+lenb = int(lenaLenbLenc[1])
+
+lenc = int(lenaLenbLenc[2])
+
+arra = list(map(int, input().rstrip().split()))
+
+arrb = list(map(int, input().rstrip().split()))
+
+arrc = list(map(int, input().rstrip().split()))
