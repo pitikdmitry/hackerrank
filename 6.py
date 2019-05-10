@@ -1,54 +1,32 @@
-#!/bin/python3
-
-import math
-import os
-import random
-import re
-import sys
-
-from math import factorial
+# rotate 2d matrix
 
 
-def c_n_k(n: int):
-    k = 2
-    return int(factorial(n) / (factorial(k) * factorial(n - k)))
+class Solution:
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        rows = len(matrix)
+        cols = len(matrix[0])
+        res = [[0 for j in range(len(matrix[i]))] for i in range(len(matrix))]
+        for row_i in range(rows):
+            for col_j in range(cols):
+                el = matrix[row_i][col_j]
+                new_i = col_j
+                new_j = rows - row_i - 1
+                res[new_i][new_j] = el
+
+        for row_i in range(rows):
+            for col_j in range(cols):
+                matrix[row_i][col_j] = res[row_i][col_j]
 
 
-def sherlockAndAnagrams(s):
-    anagrams = {}
-    length = 1
-
-    while length < len(s):
-        i = 0
-        while i < len(s):
-            if i + length - 1 < len(s):
-                word = s[i:i + length]
-                word = ''.join(sorted(word))
-                if word not in anagrams:
-                    anagrams[word] = 1
-                else:
-                    anagrams[word] += 1
-            i += 1
-        length += 1
-
-    result = 0
-    for key, value in anagrams.items():
-        if value != 1:
-            result += c_n_k(value)
-    return result
-
-
-if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    q = int(input())
-
-    for q_itr in range(q):
-        s = input()
-
-        result = sherlockAndAnagrams(s)
-
-        fptr.write(str(result) + '\n')
-
-    fptr.close()
-
+s = Solution()
+matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+]
+s.rotate(matrix)
+print(matrix)
